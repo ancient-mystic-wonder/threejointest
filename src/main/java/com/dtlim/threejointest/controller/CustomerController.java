@@ -18,7 +18,7 @@ public class CustomerController {
 
     @GetMapping("/all")
     public List<Customer> allCustomers() {
-        return customerRepository.findAll();
+        return customerRepository.findAllUsingJoinFetch();
     }
 
 }
