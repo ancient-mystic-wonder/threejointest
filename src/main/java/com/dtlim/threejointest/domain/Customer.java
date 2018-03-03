@@ -14,19 +14,15 @@ public class Customer implements Serializable {
 
     static class CustomerId implements Serializable {
         private String name;
-        private int age;
-        private String tableNumber;
     }
 
     @Id
     @Column(name = "name")
     private String name;
 
-    @Id
     @Column(name = "age")
     private int age;
 
-    @Id
     @Column(name = "table_number")
     private String tableNumber;
 
@@ -34,13 +30,11 @@ public class Customer implements Serializable {
     @JoinColumn(name = "table_number", referencedColumnName = "table_number", insertable = false, updatable = false)
     private RestaurantTable table;
 
-    // Uncommenting this block of code will yield the error:
-    // org.hibernate.AnnotationException: referencedColumnNames(name) of com.dtlim.threejointest.domain.Order.orders
-    // referencing com.dtlim.threejointest.domain.Customer not mapped to a single property
+    // Commenting out the orders will still compile fine, however the above code is already fundamentally wrong.
 
-    // Since @OneToMany requires that the Order entity be only mapped to one (and only one) Customer,
-    // every referenced column from Order must be part of the Customer class's ID (annotated with @Id) to make sure
-    // that every Order is mapped to only one Customer
+    // Customers having the same name will show up as duplicate fields on our left join, instead of different customers.
+    // for example, having a (Paul, 40, 1) and (Paul, 10, 2) in our Customer table will get a List<> of elements:
+    // (Paul, 40, 1) (Paul, 40, 1) because the name 'Paul' in this case was considered as the ID of the entity
 
 //    @OneToMany
 //    @JoinColumn(name = "customer_name", referencedColumnName = "name", insertable = false, updatable = false)
