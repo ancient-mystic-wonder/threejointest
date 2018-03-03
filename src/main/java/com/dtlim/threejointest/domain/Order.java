@@ -14,12 +14,10 @@ import java.io.Serializable;
 public class Order implements Serializable {
 
     @Id
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "food_name")
     private String foodName;
 
+    @Id
     @Column(name = "customer_name")
     private String customerName;
 }

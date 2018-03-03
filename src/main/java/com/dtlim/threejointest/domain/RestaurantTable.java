@@ -14,9 +14,6 @@ import java.io.Serializable;
 public class RestaurantTable implements Serializable {
 
     @Id
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "table_number")
     private String tableNumber;
 
