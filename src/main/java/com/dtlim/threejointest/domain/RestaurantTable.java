@@ -17,6 +17,7 @@ public class RestaurantTable implements Serializable {
     @Column(name = "table_number")
     private String tableNumber;
 
+    @Id
     @Column(name = "capacity")
     private int capacity;
 }

@@ -1,8 +1,7 @@
 package com.dtlim.threejointest.controller;
 
-import com.dtlim.threejointest.domain.Customer;
-import com.dtlim.threejointest.repository.CustomerRepository;
-import com.dtlim.threejointest.repository.CustomerSpec;
+import com.dtlim.threejointest.dto.CustomerResponse;
+import com.dtlim.threejointest.repository.AdhocCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +14,14 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private AdhocCustomerRepository customerRepository;
 
     @GetMapping("/all")
-    public List<Customer> allCustomers() {
-        return customerRepository.findAll(CustomerSpec.leftJoinedAll());
-//        return customerRepository.findAllUsingJoinFetch();
+
+    public List<CustomerResponse> allCustomers() {
+//        List<Customer> customers = customerRepository.findAll(CustomerSpec.leftJoinedAll());
+        List<CustomerResponse> customers = customerRepository.findAllLeftJoined();
+        return customers;
     }
 
 }
